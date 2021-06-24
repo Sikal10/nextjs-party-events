@@ -1,0 +1,19 @@
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 300px;
+    color: white;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("/images/hero.jpg") no-repeat center center;
+}
+
+.hero * {
+    z-index: 20;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 0;
+}
