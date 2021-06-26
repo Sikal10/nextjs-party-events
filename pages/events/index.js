@@ -22,7 +22,7 @@ const EventsPage = ({events}) => {
 export default EventsPage;
 
 export const getStaticProps = async () => {
-    const {data} = await axios.get(`${API_URL}/api/events`);
+    const {data} = await axios.get(`${API_URL}/events?_sort=date:ASC`);
     const events = data;
 
     return {

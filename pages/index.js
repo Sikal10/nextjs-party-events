@@ -26,7 +26,7 @@ const HomePage = ({events}) => {
 export default HomePage;
 
 export const getStaticProps = async () => {
-    const {data} = await axios.get(`${API_URL}/api/events`);
+    const {data} = await axios.get(`${API_URL}/events?_sort=date:ASC&_limit=3`);
 
     return {
         props: {events: data.slice(0, 3)}

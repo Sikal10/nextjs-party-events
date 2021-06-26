@@ -1,4 +1,6 @@
 module.exports = {
+  images: {
+    domains: ['res.cloudinary.com']
+  },
   reactStrictMode: true,
-  API_URL: "http://locallhost:3000"
 }
