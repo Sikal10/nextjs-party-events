@@ -12,7 +12,7 @@ const EventItem = ({event}) => {
     return (
         <div className={classes.event}>
             <div className={classes.image}>
-                <Image alt={""} src={event.image ? event.image.formats.thumbnail.url : `images/event-default.png`} height={100} width={170}/>
+                <Image alt={""} src={event.image ? event.image.formats.thumbnail.url : `/images/event-default.png`} height={100} width={170}/>
             </div>
 
             <div className={classes.info}>

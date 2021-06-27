@@ -7,7 +7,7 @@ const EventPage = ({event}) => {
 };
 
 export const getServerSideProps = async ({query: {slug}}) => {
-    const {data: events} = await axios.get(`${API_URL}/events/?slug=${slug}`);
+    const {data: events} = await axios.get(`${API_URL}/events?slug=${slug}`);
 
     return {
         props: {

@@ -4,6 +4,12 @@ import Image from "next/image";
 import {FaPencilAlt, FaTimes} from "react-icons/fa";
 
 const Event = ({event}) => {
+    const humanReadableDate = new Date(event.date).toLocaleString("en-US", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    })
+
     const deleteEventHandler = () => {
         console.log("Deleted")
     }
@@ -17,10 +23,10 @@ const Event = ({event}) => {
                 <a className={classes.delete} onClick={deleteEventHandler}><FaTimes/> Delete Event</a>
             </div>
 
-            <span>{event.date} at {event.time}</span>
+            <span>{humanReadableDate} at {event.time}</span>
             <h1>{event.name}</h1>
             {event.image && <div className={classes.image}>
-                <Image src={event.image.formats.medium.url} width={960} height={600} />
+                <Image src={event.image.formats.large.url} width={960} height={600} />
             </div>}
 
             <h3>Performers:</h3>

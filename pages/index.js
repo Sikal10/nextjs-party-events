@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import axios from "axios";
 import {API_URL} from "../config/index";
-import EventItem from "../components/Event-Item/EventItem";
-import Link from "next/link";
+import Home from "../components/Home/Home";
 
 const HomePage = ({events}) => {
     return (
@@ -13,12 +12,7 @@ const HomePage = ({events}) => {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
 
-            <h1>Upcoming Events</h1>
-            {events.length === 0 && <h3>No events to show</h3>}
-            {events.map(event => <EventItem key={event.id} event={event}/>)}
-            {events.length > 0 && <Link href={"/events"}>
-                <a className={"btn-secondary"}>View All Events</a>
-            </Link>}
+            <Home events={events} />
         </>
     )
 }
