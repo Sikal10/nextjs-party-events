@@ -1,22 +1,28 @@
-import {useState} from "react";
-import {useRouter} from "next/router";
-import Link from "next/link";
-import classes from "./add-event.module.css";
-import { ToastContainer, toast } from 'react-toastify';
+import React, {useState} from 'react';
+import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import {API_URL} from "../../config";
+import Link from "next/link";
+import classes from "../Add-Event/add-event.module.css";
+import {useRouter} from "next/router";
+import moment from "moment";
+import Image from "next/image";
+import {FaImage} from "react-icons/fa";
 
-const AddEvent = () => {
+const EditEvent = ({event}) => {
     const [values, setValues] = useState({
-        name: "",
-        performers: "",
-        venue: "",
-        address: "",
-        description: "",
-        time: "",
-        date: ""
+        name: event.name,
+        performers: event.performers,
+        venue: event.venue,
+        address: event.address,
+        description: event.description,
+        time: event.time,
+        date: event.date
     });
+    const [imagePreview, setImagePreview] = useState(event.image ? event.image.formats.thumbnail.url : null);
+
+    const router = useRouter();
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -34,7 +40,7 @@ const AddEvent = () => {
         }
 
         try {
-            const {data} = await axios.post(`${API_URL}/events`, values, config);
+            const {data} = await axios.put(`${API_URL}/events/${event.id}`, values, config);
             await router.push(`/events/${data.slug}`);
 
         } catch (err) {
@@ -47,12 +53,10 @@ const AddEvent = () => {
         setValues({...values, [name]: value})
     }
 
-    const router = useRouter();
-
     return (
         <>
             <Link href={"/events"}>Go Back</Link>
-            <h1>Add events</h1>
+            <h1>Edit events</h1>
             <ToastContainer position={"top-center"} />
 
             <form onSubmit={handleSubmit} className={classes.form}>
@@ -103,7 +107,7 @@ const AddEvent = () => {
                             type='date'
                             name='date'
                             id='date'
-                            value={values.date}
+                            value={moment(values.date).format("yyyy-MM-DD")}
                             onChange={handleInputChange}
                         />
                     </div>
@@ -122,7 +126,6 @@ const AddEvent = () => {
                 <div>
                     <label htmlFor='description'>Event Description</label>
                     <textarea
-                        type='text'
                         name='description'
                         id='description'
                         value={values.description}
@@ -130,11 +133,20 @@ const AddEvent = () => {
                     />
                 </div>
 
-                <input type='submit' value='Add Event' className='btn' />
+                <input type='submit' value='Update Event' className='btn' />
             </form>
 
+            <h2>Event Image</h2>
+            {imagePreview ? <Image src={imagePreview} alt={""} height={100} width={170} />: <div><p>No image uploaded</p></div>}
+
+            <div>
+                <button className="btn-secondary">
+                   <FaImage /> Set Image
+                </button>
+            </div>
         </>
+
     );
 };
 
-export default AddEvent;
+export default EditEvent;

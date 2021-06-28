@@ -2,16 +2,37 @@ import classes from "./event.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import {FaPencilAlt, FaTimes} from "react-icons/fa";
+import axios from "axios";
+import {API_URL} from "../../config";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {useRouter} from "next/router";
 
 const Event = ({event}) => {
+    const router = useRouter();
+
     const humanReadableDate = new Date(event.date).toLocaleString("en-US", {
         day: "numeric",
         month: "long",
         year: "numeric"
     })
 
-    const deleteEventHandler = () => {
-        console.log("Deleted")
+    const deleteEventHandler = async () => {
+        const config = {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+
+        try {
+            if (confirm("Are you sure?")) {
+                await axios.delete(`${API_URL}/events/${event.id}`, config);
+                await router.push(`/events`);
+            }
+
+        } catch (err) {
+            toast.error(err.message);
+        }
     }
 
     return (
@@ -23,10 +44,12 @@ const Event = ({event}) => {
                 <a className={classes.delete} onClick={deleteEventHandler}><FaTimes/> Delete Event</a>
             </div>
 
+            <ToastContainer/>
+
             <span>{humanReadableDate} at {event.time}</span>
             <h1>{event.name}</h1>
             {event.image && <div className={classes.image}>
-                <Image src={event.image.formats.large.url} width={960} height={600} />
+                <Image alt={""} src={event.image.formats.large.url} width={960} height={600} />
             </div>}
 
             <h3>Performers:</h3>

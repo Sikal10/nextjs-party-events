@@ -20,6 +20,10 @@
     margin: 20px 0 30px;
 }
 
+.form textarea {
+    outline: 0;
+}
+
 .form .file {
     border: 1px #ccc solid;
     background-color: #f4f4f4;
