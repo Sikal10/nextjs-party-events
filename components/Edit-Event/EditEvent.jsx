@@ -9,6 +9,8 @@ import {useRouter} from "next/router";
 import moment from "moment";
 import Image from "next/image";
 import {FaImage} from "react-icons/fa";
+import Modal from "../Modal/Modal";
+import ImageUpload from "../ImageUpload/ImageUpload";
 
 const EditEvent = ({event}) => {
     const [values, setValues] = useState({
@@ -21,6 +23,7 @@ const EditEvent = ({event}) => {
         date: event.date
     });
     const [imagePreview, setImagePreview] = useState(event.image ? event.image.formats.thumbnail.url : null);
+    const [showModal, setShowModal] = useState(false);
 
     const router = useRouter();
 
@@ -51,6 +54,19 @@ const EditEvent = ({event}) => {
     const handleInputChange = e => {
         const {name, value} = e.target;
         setValues({...values, [name]: value})
+    }
+
+    const imageUploaded = async () => {
+        console.log("uploaded");
+        try {
+            const {data} = await axios.get(`${API_URL}/events/${event.id}`);
+            setImagePreview(data.image.formats.thumbnail.url);
+            setShowModal(false)
+
+        } catch (err) {
+            console.log("na here error de o")
+            console.log(err)
+        }
     }
 
     return (
@@ -140,10 +156,14 @@ const EditEvent = ({event}) => {
             {imagePreview ? <Image src={imagePreview} alt={""} height={100} width={170} />: <div><p>No image uploaded</p></div>}
 
             <div>
-                <button className="btn-secondary">
+                <button onClick={() => setShowModal(true)} className="btn-secondary">
                    <FaImage /> Set Image
                 </button>
             </div>
+
+            <Modal showModal={showModal} onCloseModal={() => setShowModal(false)}>
+                <ImageUpload eventId={event.id} imageUploaded={imageUploaded} />
+            </Modal>
         </>
 
     );
