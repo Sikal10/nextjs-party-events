@@ -1,0 +1,33 @@
+.register {
+    margin: auto;
+    max-width: 30rem;
+    box-shadow: 0 10px 20px 0 rgba(50, 50, 50, 0.52);
+    padding: 30px;
+}
+.icon {
+    margin-right: 10px;
+}
+
+.register h1 {
+    color: #333333;
+    font-size: 18px;
+}
+
+.register form {
+    margin-top: -5px;
+}
+
+.register input {
+    outline: 0;
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    padding: 5px;
+    display: block;
+    border: 1px solid lightgrey;
+}
+
+.register input[type="submit"] {
+    margin-top: 20px;
+    width: 100%;
+}

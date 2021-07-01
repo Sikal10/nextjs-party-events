@@ -1,0 +1,39 @@
+.form {
+    max-width: 600px;
+    margin: auto;
+    width: 400px;
+    padding: 30px;
+    box-shadow: 0 10px 20px 0 rgba(50, 50, 50, 0.52);
+}
+
+.form label {
+    font-weight: 700;
+    font-family: cursive;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form input[type="email"],
+.form input[type="password"] {
+    width: 100%;
+    display: block;
+    outline: none;
+    height: 40px;
+    border: 1px solid lightgrey;
+    padding: 5px;
+    font-size: 18px;
+}
+.form input[type="submit"] {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.form div {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .form {
+        display: none;
+    }
+}
