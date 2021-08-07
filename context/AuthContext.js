@@ -47,7 +47,11 @@ export const AuthProvider = ({children}) => {
 
 //logout user
     const logout = async () => {
-        console.log("logout")
+        const {statusText} =  await axios.post(`${NEXT_URL}/api/logout`);
+        if (statusText === "OK") {
+            setUser(null);
+            await router.push("/")
+        }
     }
 
 //check if user is logged in
